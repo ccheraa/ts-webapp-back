@@ -1,0 +1,24 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "output": true,
+    "node_modules": true,
+    ".vscode": true,
+    "dist": true,
+    "src/public/**/*": true,
+    "src/client/environments/**/*": true,
+
+    "karma.conf.js": true,
+    "package.json": false,
+    "protractor.conf.js": true,
+    "webpack.conf.js": true,
+    "tslint.json": true,
+    "tsconfig.json": true,
+    "proxy.json": false,
+    "angular-cli.json": false
+  },
+  "vsicons.presets.angular": true
+}

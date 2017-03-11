@@ -1,0 +1,69 @@
+{
+  "name": "@ts-webapp/back",
+  "version": "0.1.5",
+  "description": "A full webapp with back and front end using typescript + Angular + Angular Material",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccheraa/ts-webapp-back.git"
+  },
+  "keywords": [
+    "typescript",
+    "express",
+    "angular",
+    "mongodb",
+    "mongoose",
+    "material",
+    "dashboard"
+  ],
+  "author": "Ashraf Cheraa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ccheraa/ts-webapp-back/issues"
+  },
+  "homepage": "https://github.com/ccheraa/ts-webapp-back#readme",
+  "dependencies": {
+    "@ts-webapp/common": "git+https://github.com/ccheraa/ts-webapp-common.git",
+    "bcryptjs": "^2.4.0",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "core-js": "^2.4.1",
+    "express": "^4.14.0",
+    "express-session": "^1.15.0",
+    "jsonwebtoken": "^7.2.1",
+    "mongoose": "^4.6.5",
+    "rxjs": "^5.1.0",
+    "ts-helpers": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/chalk": "^0.4.31",
+    "@types/es6-collections": "^0.5.29",
+    "@types/es6-promise": "0.0.32",
+    "@types/express": "^4.0.35",
+    "@types/jsonwebtoken": "^7.2.0",
+    "@types/mongoose": "^4.7.8",
+    "@types/node": "^7.0.5",
+    "awesome-typescript-loader": "^3.0.0-beta.18",
+    "chalk": "^1.1.3",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^3.0.2",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-replace": "^0.5.4",
+    "gulp-run": "^1.7.1",
+    "gulp-tslint": "^6.1.2",
+    "gulp-typescript": "^3.1.4",
+    "gulp-uglify": "^2.0.1",
+    "rimraf": "^2.6.1",
+    "source-map-support": "^0.4.11",
+    "ts-node": "^1.2.1",
+    "tslint": "^4.3.0",
+    "typescript": "^2.0.6",
+    "webpack": "^2.2.0"
+  }
+}
