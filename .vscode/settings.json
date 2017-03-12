@@ -20,5 +20,5 @@
     "proxy.json": false,
     "angular-cli.json": false
   },
-  "vsicons.presets.angular": true
+  "vsicons.presets.angular": false
 }

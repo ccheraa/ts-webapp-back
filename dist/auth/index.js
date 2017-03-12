@@ -4,4 +4,5 @@ function __export(m) {
 }
 __export(require("./auth"));
 __export(require("./model"));
+__export(require("./route"));
 //# sourceMappingURL=index.js.map
