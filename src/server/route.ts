@@ -1,4 +1,4 @@
-import * as express from 'express';
+import { RequestHandler } from 'express';
 const HTTP_METHODS: string[] = ['options', 'patch', 'get', 'head', 'post', 'put', 'delete', 'trace', 'connect'];
 export class Handles {
   constructor() {}
@@ -12,7 +12,7 @@ export class Handles {
       .filter(key => this[key])
       .map(key => fun(this[key], key));
   }
-  public on(method: string | string[], ...functions: (express.RequestHandler | string)[]): Handles {
+  public on(method: string | string[], ...functions: (RequestHandler | string)[]): Handles {
     if (typeof method === 'object') {
       (method as string[]).forEach(methodRef => this.on(methodRef, ...functions));
     } else {
@@ -24,10 +24,10 @@ export class Handles {
 export class Route {
   public handles: Handles = new Handles();
   constructor(public url: string = '/') {}
-  static create(fun: express.RequestHandler, url: string = '/', method: string | string[] = 'get') {
+  static create(fun: RequestHandler, url: string = '/', method: string | string[] = 'get') {
     return new Route(url).on(method, fun);
   }
-  public on(method: string | string[], ...functions: (express.RequestHandler | string)[]): Route {
+  public on(method: string | string[], ...functions: (RequestHandler | string)[]): Route {
     this.handles.on(method, ...functions);
     return this;
   }

@@ -1,5 +1,6 @@
-import * as express from 'express';
-import * as http from 'http';
+import { Express, RequestHandler } from 'express';
+import * as ExpressLib from 'express';
+import { Server as HttpServer } from 'http';
 import { Controller } from './controller';
 // import { isPortFree } from './tools';
 import * as bodyParser from 'body-parser';
@@ -11,15 +12,15 @@ export const serverDefaultConfig = {
 };
 export class Server {
   static main: Server = null;
-  static servers: http.Server[] = [];
+  static servers: HttpServer[] = [];
 
   public config = serverDefaultConfig;
-  public app: express.Express;
+  public app: Express;
   public controllers: Controller[] = [];
   public statics: any[] = [];
   public routes: any[] = [];
   public middlewares: any[] = [];
-  public server: http.Server;
+  public server: HttpServer;
   public static bootstrap(config: any = {}): Server {
     return Server.main = new Server(config);
   }
@@ -32,7 +33,7 @@ export class Server {
         this.config.host = config.host;
       }
     }
-    this.app = express();
+    this.app = ExpressLib();
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(cookieParser());
@@ -53,22 +54,22 @@ export class Server {
     let route = {
       url: url,
       dir,
-      handle: express.static(dir)
+      handle: ExpressLib.static(dir)
     };
     this.statics.push(route);
     this.app.use(url, route.handle);
   }
-  public default(...functions: express.RequestHandler[]): void {
+  public default(...functions: RequestHandler[]): void {
     functions.forEach(fun => this.app.use((err, req, res, next) => err ? fun(req, res, next) : next(err)));
   }
-  public route(url: string, ...functions: express.RequestHandler[]): void {
+  public route(url: string, ...functions: RequestHandler[]): void {
     this.routes.push({
       url: url,
       handle: functions
     });
     this.app.use(url, ...functions.filter(route => !!route));
   }
-  public middleware(...functions: express.RequestHandler[]): void {
+  public middleware(...functions: RequestHandler[]): void {
     this.middlewares.push(...functions);
     this.app.use(...functions);
   }
@@ -90,7 +91,7 @@ export class Server {
   // TODO: Server.stop not working?
   static stop(callback?: Function): void {
     let closedServers: number = 0;
-    let closedServer = function(server: http.Server) {
+    let closedServer = function(server: HttpServer) {
       if (++closedServers === Server.servers.length) {
         !!callback && callback();
       }

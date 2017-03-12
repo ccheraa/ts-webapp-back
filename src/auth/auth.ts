@@ -1,10 +1,10 @@
-import * as express from 'express';
-import * as mongoose from 'mongoose';
-import * as crypt from 'bcryptjs';
+import { RequestHandler, Request, Response, NextFunction } from 'express';
+import { Schema } from 'mongoose';
+import { hashSync, compareSync} from 'bcryptjs';
 import { Subject } from 'rxjs';
 import { Model } from '../db';
 // import { AuthModel } from './model';
-import * as jwt from 'jsonwebtoken';
+import { sign, verify} from 'jsonwebtoken';
 
 export interface SerializeFunction {
   (user: any): Subject<any>;
@@ -18,10 +18,10 @@ export class Token {
     Token.duration = duration;
   }
   static sign(object: any, secret?: string, duration?: number, cb?: Function) {
-    return jwt.sign(object, secret || Token.secret, {expiresIn: duration || Token.duration}, (err, token) => cb && cb(err, token));
+    return sign(object, secret || Token.secret, {expiresIn: duration || Token.duration}, (err, token) => cb && cb(err, token));
   }
   static verify(token: string, secret?: string, cb?: Function) {
-    return jwt.verify(token, secret || Token.secret, (err, object) => cb && cb(err, object));
+    return verify(token, secret || Token.secret, (err, object) => cb && cb(err, object));
   }
 }
 export class Auth {
@@ -37,10 +37,10 @@ export class Auth {
     Auth.duration = duration;
     return Auth;
   }
-  static setupSchema(schema: mongoose.Schema) {
+  static setupSchema(schema: Schema) {
     schema.pre('save', function(next) {
       if (this.isModified('password')) {
-        this.password = crypt.hashSync(this.password, 10);
+        this.password = hashSync(this.password, 10);
       }
       next();
     });
@@ -80,10 +80,10 @@ export class Auth {
     return (Auth.cleanFunction || Auth.cleanDefault)(user);
   }
   static check(user, password): boolean {
-    return crypt.compareSync(password, user.password);
+    return compareSync(password, user.password);
   }
-  static signIn(fail?: string | express.RequestHandler) {
-    return function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  static signIn(fail?: string | RequestHandler) {
+    return function(req: Request, res: Response, next: NextFunction) {
       function done(err: any, result: any, serializedResult: any, flash?: string) {
         if (result) {
           Token.sign({ data: serializedResult }, Auth.secret, Auth.duration, (err, token) => {
@@ -97,7 +97,7 @@ export class Auth {
             if (typeof fail === 'string') {
               res.redirect(fail);
             } else {
-              <express.RequestHandler>fail(req, res, next);
+              <RequestHandler>fail(req, res, next);
             }
           } else {
             res.clearCookie('token');

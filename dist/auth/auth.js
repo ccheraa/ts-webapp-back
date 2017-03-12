@@ -1,7 +1,7 @@
 "use strict";
-var crypt = require("bcryptjs");
+var bcryptjs_1 = require("bcryptjs");
 // import { AuthModel } from './model';
-var jwt = require("jsonwebtoken");
+var jsonwebtoken_1 = require("jsonwebtoken");
 var Token = (function () {
     function Token() {
     }
@@ -12,10 +12,10 @@ var Token = (function () {
         Token.duration = duration;
     };
     Token.sign = function (object, secret, duration, cb) {
-        return jwt.sign(object, secret || Token.secret, { expiresIn: duration || Token.duration }, function (err, token) { return cb && cb(err, token); });
+        return jsonwebtoken_1.sign(object, secret || Token.secret, { expiresIn: duration || Token.duration }, function (err, token) { return cb && cb(err, token); });
     };
     Token.verify = function (token, secret, cb) {
-        return jwt.verify(token, secret || Token.secret, function (err, object) { return cb && cb(err, object); });
+        return jsonwebtoken_1.verify(token, secret || Token.secret, function (err, object) { return cb && cb(err, object); });
     };
     return Token;
 }());
@@ -36,7 +36,7 @@ var Auth = (function () {
     Auth.setupSchema = function (schema) {
         schema.pre('save', function (next) {
             if (this.isModified('password')) {
-                this.password = crypt.hashSync(this.password, 10);
+                this.password = bcryptjs_1.hashSync(this.password, 10);
             }
             next();
         });
@@ -76,7 +76,7 @@ var Auth = (function () {
         return (Auth.cleanFunction || Auth.cleanDefault)(user);
     };
     Auth.check = function (user, password) {
-        return crypt.compareSync(password, user.password);
+        return bcryptjs_1.compareSync(password, user.password);
     };
     Auth.signIn = function (fail) {
         return function (req, res, next) {

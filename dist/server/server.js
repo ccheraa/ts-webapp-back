@@ -1,5 +1,5 @@
 "use strict";
-var express = require("express");
+var ExpressLib = require("express");
 // import { isPortFree } from './tools';
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
@@ -23,7 +23,7 @@ var Server = (function () {
                 this.config.host = config.host;
             }
         }
-        this.app = express();
+        this.app = ExpressLib();
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(cookieParser());
@@ -49,7 +49,7 @@ var Server = (function () {
         var route = {
             url: url,
             dir: dir,
-            handle: express.static(dir)
+            handle: ExpressLib.static(dir)
         };
         this.statics.push(route);
         this.app.use(url, route.handle);

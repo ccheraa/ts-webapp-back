@@ -1,7 +1,7 @@
 /// <reference types="node" />
 /// <reference types="express" />
-import * as express from 'express';
-import * as http from 'http';
+import { Express, RequestHandler } from 'express';
+import { Server as HttpServer } from 'http';
 import { Controller } from './controller';
 export declare const serverDefaultConfig: {
     port: number;
@@ -9,24 +9,24 @@ export declare const serverDefaultConfig: {
 };
 export declare class Server {
     static main: Server;
-    static servers: http.Server[];
+    static servers: HttpServer[];
     config: {
         port: number;
         host: string;
     };
-    app: express.Express;
+    app: Express;
     controllers: Controller[];
     statics: any[];
     routes: any[];
     middlewares: any[];
-    server: http.Server;
+    server: HttpServer;
     static bootstrap(config?: any): Server;
     constructor(config?: any);
     applyRoutes(controllers: Controller[]): void;
     static(dir: string, url?: string): void;
-    default(...functions: express.RequestHandler[]): void;
-    route(url: string, ...functions: express.RequestHandler[]): void;
-    middleware(...functions: express.RequestHandler[]): void;
+    default(...functions: RequestHandler[]): void;
+    route(url: string, ...functions: RequestHandler[]): void;
+    middleware(...functions: RequestHandler[]): void;
     ip(): string;
     private static error(error);
     start(callback?: Function): void;

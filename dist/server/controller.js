@@ -1,5 +1,4 @@
 "use strict";
-var express = require("express");
 var route_1 = require("./route");
 var Controller = (function () {
     function Controller(base, routes) {
