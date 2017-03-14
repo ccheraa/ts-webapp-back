@@ -127,8 +127,8 @@ export class Auth {
       });
     };
   }
-  static isSignedIn(fail?: string | express.RequestHandler) {
-    return function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  static isSignedIn(fail?: string | RequestHandler) {
+    return function(req: Request, res: Response, next: NextFunction) {
       function done(err: any, result: any, flash?: string) {
         if (result) {
           req.body.user = Auth.clean(result);
@@ -138,7 +138,7 @@ export class Auth {
             if (typeof fail === 'string') {
               res.redirect(fail);
             } else {
-              <express.RequestHandler>fail(req, res, next);
+              <RequestHandler>fail(req, res, next);
             }
           } else {
             res.clearCookie('token');
@@ -172,15 +172,15 @@ export class Auth {
     };
   }
   static signOut() {
-    return function(req: express.Request, res: express.Response, next: express.NextFunction) {
+    return function(req: Request, res: Response, next: NextFunction) {
       res.clearCookie('token');
       req.body.user = false;
       req.body.token = false;
       next();
     };
   }
-  static register(fail?: string | express.RequestHandler) {
-    return function(req: express.Request, res: express.Response, next: express.NextFunction) {
+  static register(fail?: string | RequestHandler) {
+    return function(req: Request, res: Response, next: NextFunction) {
       function done(err: any, result: any, flash?: string) {
         if (result) {
           req.body.registered = result;
@@ -190,7 +190,7 @@ export class Auth {
             if (typeof fail === 'string') {
               res.redirect(fail);
             } else {
-              <express.RequestHandler>fail(req, res, next);
+              <RequestHandler>fail(req, res, next);
             }
           } else {
             req.body.registered = false;

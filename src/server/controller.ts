@@ -1,7 +1,7 @@
 import { Router, RequestHandler, Application } from 'express';
 import { Route } from './route';
 export class Controller {
-  public router: Router = express.Router();
+  public router: Router = Router();
   constructor(public base: string = '/', public routes: Route[] = []) {}
   public add(fun: RequestHandler, url: string = '/', method: string = 'get') {
     let route = Route.create(fun, url, method);

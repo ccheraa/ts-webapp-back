@@ -1,4 +1,5 @@
 "use strict";
+var express_1 = require("express");
 var route_1 = require("./route");
 var Controller = (function () {
     function Controller(base, routes) {
@@ -6,7 +7,7 @@ var Controller = (function () {
         if (routes === void 0) { routes = []; }
         this.base = base;
         this.routes = routes;
-        this.router = express.Router();
+        this.router = express_1.Router();
     }
     Controller.prototype.add = function (fun, url, method) {
         if (url === void 0) { url = '/'; }
