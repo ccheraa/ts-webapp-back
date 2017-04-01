@@ -10,19 +10,17 @@ var Model = (function () {
     }
     Model.callback = function (result, getResult) {
         // console.info('preparing callback...');
-        return function () {
+        return function (err) {
             var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
             }
             // console.log('getting result...');
             // console.log(args);
-            var err = args[0];
             if (err) {
                 result.error(err);
             }
             else {
-                args.shift();
                 var ret = getResult ? getResult.apply(null, args) : args[0];
                 result.next(ret);
                 result.complete();

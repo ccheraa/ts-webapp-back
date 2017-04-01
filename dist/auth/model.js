@@ -21,10 +21,10 @@ var AuthModel = (function (_super) {
     // deserializeFunction: AuthFunction;
     // serializeFunction: AuthFunction;
     // authenticateFunction: AuthenticateFunction;
-    AuthModel.prototype.makeSchema = function (name) {
+    AuthModel.prototype.makeSchema = function (definition) {
         this.definition.username = { type: String };
         this.definition.password = { type: String };
-        _super.prototype.makeSchema.call(this, name);
+        _super.prototype.makeSchema.call(this, definition);
     };
     AuthModel.prototype.makeModel = function (name) {
         auth_1.Auth.setupSchema(this.schema);

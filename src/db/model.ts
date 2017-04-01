@@ -11,14 +11,12 @@ export class Model<T> {
   }
   private static callback<T>(result: Subject<T>, getResult?: (...args) => any) {
     // console.info('preparing callback...');
-    return (...args) => {
+    return (err, ...args) => {
       // console.log('getting result...');
       // console.log(args);
-      let err = args[0];
       if (err) {
         result.error(err);
       } else {
-        args.shift();
         let ret = getResult ? getResult.apply(null, args) : args[0];
         result.next(ret);
         result.complete();

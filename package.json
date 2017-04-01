@@ -1,6 +1,6 @@
 {
   "name": "@ts-webapp/back",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A full webapp with back and front end using typescript + Angular + Angular Material",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

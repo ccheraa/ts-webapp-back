@@ -14,10 +14,10 @@ export class AuthModel<T> extends Model<T> {
   // deserializeFunction: AuthFunction;
   // serializeFunction: AuthFunction;
   // authenticateFunction: AuthenticateFunction;
-  makeSchema(name) {
+  makeSchema(definition) {
     this.definition.username = { type: String };
     this.definition.password = { type: String };
-    super.makeSchema(name);
+    super.makeSchema(definition);
   }
   makeModel(name) {
     Auth.setupSchema(this.schema);
